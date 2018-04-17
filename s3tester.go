@@ -300,6 +300,7 @@ func runtest(args parameters) (float64, bool) {
 
 					case args.optype == "put":
 						cl := args.osize
+						fmt.Printf("current keyName is %s\n", keyName)
 						obj.SetData(keyName)
 						r.uniqObjNum++
 
