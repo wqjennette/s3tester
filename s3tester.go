@@ -207,6 +207,13 @@ func runtest(args parameters) (float64, bool) {
 
 	runstart := time.Now()
 	for i := 0; i < args.concurrency; i++ {
+		var obj *DummyReader
+		if args.optype == "multipartput" {
+			obj = NewDummyReader(args.partsize)
+		} else {
+			obj = NewDummyReader(args.osize)
+		}
+
 		go func(id int) {
 			tlc := &tls.Config{
 				InsecureSkipVerify: true,
@@ -257,13 +264,7 @@ func runtest(args parameters) (float64, bool) {
 			}
 
 			for j := 0; uint64(j) <= runNum; j++ {
-				var obj *DummyReader
-				if args.optype == "multipartput" {
-					obj = NewDummyReader(args.partsize)
-				} else {
-					obj = NewDummyReader(args.osize)
-				}
-
+				obj.Offset = 0
 				limiter.Wait(context.Background())
 
 				var start time.Time
