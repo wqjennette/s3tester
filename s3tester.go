@@ -1,6 +1,7 @@
 package main
 
 import (
+	"bytes"
 	"crypto/tls"
 	"errors"
 	"flag"
@@ -309,7 +310,7 @@ func runtest(args parameters) (float64, bool) {
 							Bucket:        aws.String(args.bucketname),
 							Key:           aws.String(keyName),
 							ContentLength: &cl,
-							Body:          obj,
+							Body:          bytes.NewReader(obj),
 							StorageClass:  &sc,
 							Metadata:      parseMetadataString(args.metadata),
 						}
