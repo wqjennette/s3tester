@@ -303,10 +303,7 @@ func runtest(args parameters) (float64, bool) {
 						fmt.Printf("current keyName is %s\n", keyName)
 						obj.SetData(keyName)
 						r.uniqObjNum++
-
-						if obj == nil {
-							fmt.Printf("body is nil")
-						}
+						fmt.Printf("current body is %s\n", obj.Data)
 
 						params := &s3.PutObjectInput{
 							Bucket:        aws.String(args.bucketname),
