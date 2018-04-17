@@ -303,7 +303,7 @@ func runtest(args parameters) (float64, bool) {
 						fmt.Printf("current keyName is %s\n", keyName)
 						obj.SetData(keyName)
 						r.uniqObjNum++
-						fmt.Printf("current body is %s\n", obj.Data)
+						fmt.Printf("current METADATA is %s\n", args.metadata)
 
 						params := &s3.PutObjectInput{
 							Bucket:        aws.String(args.bucketname),
@@ -590,6 +590,7 @@ func runtest(args parameters) (float64, bool) {
 						if awsErr != nil && ok {
 							log.Print("Failed:", awsErr.Code(), awsErr.Error(), awsErr.Message())
 						} else {
+							fmt.Printf("i am not aws error")
 							log.Print("Failed:", err.Error())
 						}
 					}
