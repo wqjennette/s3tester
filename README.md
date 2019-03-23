@@ -1,28 +1,27 @@
-# About
+# s3tester
 
 s3tester is a lightweight S3 API performance test command-line utility.
 
-## s3tester latest version
+## Installation
+
+     $ go get github.com/NetApp-StorageGRID/s3tester
+### Minimum Requirements
+	
+	 Go 1.7 or higher
+### s3tester latest version
 
 	 1.1.5
 
-# Installation
+## Usage
 
-     $ go get github.com/NetApp-StorageGRID/s3tester
-## Minimum Requirements
-	
-	 Go 1.7 or higher
-
-# Usage
-
-## Setting your s3 credentials
+### Setting your s3 credentials
 
 s3tester retrieves the access key and the secret access key from the environment variables as shown below:
 
     $ export AWS_ACCESS_KEY=AKIAINZFCN46TISVUUCA
     $ export AWS_SECRET_ACCESS_KEY=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
 
-## Command line options
+### Command line options
 
 	./s3tester --help
 	Usage of ./s3tester:
@@ -73,12 +72,12 @@ s3tester retrieves the access key and the secret access key from the environment
   	-verify
         	Verify the retrieved data on a get operation 
 
-## Exit code
+### Exit code
 `1` One or more requests has failed.
 
-# Examples
+## Examples
 
-## Writing objects into a bucket
+### Writing objects into a bucket
 
     ./s3tester -concurrency=128 -size=20000000 -operation=put -requests=200000 -endpoint="10.96.105.5:8082" -prefix=3
 
@@ -89,7 +88,7 @@ s3tester retrieves the access key and the secret access key from the environment
 - The object size is 20,000,000 bytes.
 - Replace the sample IP/port combination with the one you are using.
 
-## Reading objects from a bucket (and other operations)
+### Reading objects from a bucket (and other operations)
     ./s3tester -concurrency=128 -operation=get -requests=200000 -endpoint="10.96.105.5:8082" -prefix=3
 
 - Matches the request above and will read the same objects written in the same sequence.
@@ -97,12 +96,12 @@ s3tester retrieves the access key and the secret access key from the environment
 - If you use the `head` operation then the S3 HEAD operation will be performed against the objects in sequence.
 - If you use the `delete` operation then the objects will be deleted.
 
-## Mixed workloads
+### Mixed workloads
 - A simple 90% PUT 10% random GET workload is available via the `putget9010r` operation.  This will issue 10% random GET requests to any of the objects written so far (by those 90% PUT operations).
 - More complex workloads can be simulated by running multiple instanes of this command line.  You will need to isolate those multiple instances by writing objects with a different prefix or writing to different buckets.
 - The rate limiting option `-ratelimit` is also useful in constructing more complex workloads with multiple instances and precise control of the ratios of the different requests.  You will need to set a limit below the maximum possible value in this sccenario.
 
-# Interpreting the results
+## Interpreting the results
 	Operation: putget9010r
 	Concurrency: 128
 	Total number of requests: 1024
